@@ -1,0 +1,262 @@
+/*
+==================================================
+1. VARIABLES Y RESET
+==================================================
+*/
+
+:root {
+    --color-primary-dark: #2c3e50;
+    --color-primary-light: #3498db;
+    --color-background: #ecf0f1;
+    --color-card-bg: #ffffff;
+    --color-text-body: #34495e;
+    --color-text-secondary: #7f8c8d;
+    --color-like-active: #e74c3c;
+
+    --card-radius: 12px;
+    --card-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+    --card-shadow-hover: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--color-background);
+    color: var(--color-text-body);
+}
+
+/*
+==================================================
+2. LAYOUT GENERAL (MOBILE FIRST)
+==================================================
+*/
+
+.layout-header {
+    background-color: var(--color-primary-dark);
+    color: #fff;
+    text-align: center;
+    padding: 30px 15px;
+}
+
+.layout-footer {
+    background-color: var(--color-primary-dark);
+    color: var(--color-text-secondary);
+    text-align: center;
+    padding: 15px;
+    font-size: 0.8em;
+}
+
+.layout-grid-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+        "aside"
+        "main";
+}
+
+.layout-aside {
+    grid-area: aside;
+    background-color: var(--color-card-bg);
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+}
+
+.sidebar-nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+}
+
+.sidebar-nav h2 {
+    display: none;
+}
+
+.sidebar-nav a {
+    text-decoration: none;
+    color: var(--color-primary-dark);
+    font-weight: bold;
+}
+
+.layout-main {
+    grid-area: main;
+    padding: 15px;
+}
+
+.layout-main h2 {
+    margin-bottom: 20px;
+    color: var(--color-primary-dark);
+}
+
+/*
+==================================================
+3. TARJETAS – FLEX (MOBILE FIRST)
+==================================================
+*/
+
+.card-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.card {
+    background-color: var(--color-card-bg);
+    border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow);
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s, border 0.3s;
+}
+
+.card-image-wrapper {
+    position: relative;
+    height: 300px;
+}
+
+.card-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Overlay estilo Pinterest */
+.card-overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(44, 62, 80, 0.6);
+    opacity: 0;
+    transition: opacity 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 15px;
+}
+
+.overlay-text {
+    color: #fff;
+    font-weight: bold;
+}
+
+.overlay-icons {
+    display: flex;
+    gap: 15px;
+}
+
+.like-button,
+.external-link {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #fff;
+    color: var(--color-primary-dark);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.card-content {
+    padding: 15px;
+}
+
+.secondary-text {
+    color: var(--color-text-secondary);
+    font-size: 0.9em;
+    margin-bottom: 15px;
+}
+
+.action-button {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--color-primary-light);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Hover solo en dispositivos no táctiles */
+@media (hover: hover) and (pointer: fine) {
+    .card:hover {
+        transform: scale(1.02);
+        box-shadow: var(--card-shadow-hover);
+        border: 1px solid var(--color-primary-light);
+    }
+
+    .card:hover .card-overlay {
+        opacity: 1;
+    }
+}
+
+/* Estados JS */
+.card.liked .like-button i {
+    color: var(--color-like-active);
+}
+
+.card.toggled {
+    background-color: #fdeaea;
+    border: 2px solid var(--color-like-active);
+}
+
+.card.toggled .action-button {
+    background-color: var(--color-like-active);
+}
+
+/*
+==================================================
+4. MEDIA QUERIES
+==================================================
+*/
+
+/* TABLET: 600px – 800px */
+@media (600px <= width <= 800px) {
+
+    .layout-grid-container {
+        grid-template-columns: 180px 1fr;
+        grid-template-areas: "aside main";
+    }
+
+    .sidebar-nav ul {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .sidebar-nav h2 {
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    .card-container {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .card {
+        width: calc(50% - 10px);
+    }
+}
+
+/* DESKTOP: > 800px */
+@media (width >= 800px) {
+
+    .layout-grid-container {
+        grid-template-columns: 250px 1fr;
+        grid-template-areas: "aside main";
+    }
+
+    .card-container {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 25px;
+    }
+
+    .card {
+        width: calc(25% - 20px);
+    }
+}
