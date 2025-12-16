@@ -6,7 +6,7 @@
     --text: #424242;
     --text-muted: #7f8c8d;
     --like: #e74c3c;
-    --header-height: 80px;
+    --header-height: 120px;
     --menu-height: 60px;
 }
 
@@ -220,15 +220,15 @@ body {
 @media (max-width: 599px) {
     .layout-header {
         position: fixed;
-        top: var(--header-height);
+        top: 0;
         width: 100%;
+        height: var(--header-height);
     }
 
     .layout-aside {
         position: fixed;
         top: var(--header-height);
         width: 100%;
-        height: var(--menu-height);
         border-bottom: 1px solid rgba(0,0,0,.1);
         z-index: 9;
     }
