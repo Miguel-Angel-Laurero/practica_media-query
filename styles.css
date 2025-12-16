@@ -6,6 +6,8 @@
     --text: #424242;
     --text-muted: #7f8c8d;
     --like: #e74c3c;
+    --header-height: 80px;
+    --menu-height: 60px;
 }
 
 * {
@@ -15,45 +17,19 @@
 }
 
 body {
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'Manrope', sans-serif;
     background: var(--bg);
     color: var(--text);
 }
 
-/* HEADER / FOOTER */
-.layout-header,
-.layout-footer {
-    background: var(--primary-dark);
-    color: #fff;
-    text-align: center;
-    padding: 20px;
-}
 /* =========================
-   FUENTE CABECERA
+   GRID GENERAL
    ========================= */
-
- .layout-header {
-    background: linear-gradient(135deg, #eeccb0, salmon);
-}
-
-.layout-header h1 {
-    font-family: 'Manrope', sans-serif;
-    font-weight: 800;
-    letter-spacing: 0.5px;
-    font-size: clamp(2rem, 5vw, 3rem);
-}
-
-.layout-header p {
-    font-family: 'Manrope', sans-serif;
-    font-weight: 500;
-    opacity: 0.9;
-    margin-top: 6px;
-}
-
 .layout-grid-container {
     display: grid;
     grid-template-columns: 1fr;
     grid-template-areas:
+        "header"
         "aside"
         "main";
 }
@@ -62,23 +38,43 @@ body {
 @media (min-width: 600px) {
     .layout-grid-container {
         grid-template-columns: 220px 1fr;
-        grid-template-areas: "aside main";
+        grid-template-areas:
+            "header header"
+            "aside main";
     }
 }
 
-/* ASIDE */
-.layout-aside {
-    background: var(--card-bg);
-    grid-area: aside;  
+/* =========================
+   HEADER
+   ========================= */
+.layout-header {
+    grid-area: header;
+    background: linear-gradient(135deg, #eeccb0, salmon);
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+    z-index: 10;
 }
 
-.sidebar-nav {
-    font-family: 'Manrope', sans-serif;
+.layout-header h1 {
+    font-weight: 800;
+    font-size: clamp(2rem, 5vw, 3rem);
+}
+
+.layout-header p {
+    opacity: 0.9;
+}
+
+/* =========================
+   ASIDE / MENU
+   ========================= */
+.layout-aside {
+    grid-area: aside;
+    background: var(--card-bg);
 }
 
 .sidebar-nav h2 {
-    font-weight: 700;
-    margin-bottom: 10px;
+    padding: 10px;
     color: var(--primary-dark);
 }
 
@@ -87,86 +83,82 @@ body {
     display: flex;
     gap: 16px;
     justify-content: center;
-    padding: 10px 0;
+    padding: 10px;
 }
 
-/* ENLACES */
 .sidebar-nav a {
-    position: relative;
     text-decoration: none;
     color: var(--primary-dark);
     font-weight: 600;
-    font-size: 0.95rem;
-    padding: 4px 2px;
-    transition: color 0.25s ease;
+    position: relative;
 }
 
-/* Subrayado animado */
 .sidebar-nav a::after {
-    content: '';
+    content: "";
     position: absolute;
-    left: 0;
     bottom: -6px;
-    width: 0%;
+    left: 0;
+    width: 0;
     height: 2px;
-    background-color: var(--primary-light);
-    transition: width 0.3s ease;
+    background: var(--primary-light);
+    transition: width .3s;
 }
 
-/* MAIN */
-.layout-main {
-    padding: 20px;
-    grid-area: main;
-    z-index: 1;
+.sidebar-nav a:hover::after,
+.sidebar-nav a.active::after {
+    width: 100%;
 }
 
-/*
-=========================
-MASONRY PINTEREST
-=========================
-*/
-.card-container {
-    columns: 1;
-    column-gap: 20px;
-}
-
-/* Responsive masonry */
+/* Desktop aside */
 @media (min-width: 600px) {
-    .card-container { columns: 2; }
     .layout-aside {
         position: sticky;
         top: 0;
         height: 100vh;
     }
+
+    .sidebar-nav ul {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+/* =========================
+   MAIN
+   ========================= */
+.layout-main {
+    grid-area: main;
+    padding: 20px;
+}
+
+.card-container {
+    columns: 1;
+    column-gap: 20px;
+}
+
+@media (min-width: 600px) {
+    .card-container { columns: 2; }
 }
 
 @media (min-width: 900px) {
     .card-container { columns: 4; }
 }
 
-/* CARD */
+/* =========================
+   CARD
+   ========================= */
 .card {
     background: var(--card-bg);
     border-radius: 12px;
-    box-shadow: 0 6px 15px rgba(0,0,0,.1);
     margin-bottom: 20px;
-    display: flex;
-    flex-direction: column;
+    box-shadow: 0 6px 15px rgba(0,0,0,.1);
     break-inside: avoid;
     overflow: hidden;
-    z-index: 1;
-    transition: transform .3s, box-shadow .3s;
+    transition: transform .3s;
 }
 
 .card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 10px 25px rgba(0,0,0,.2);
-}
-
-/* IMAGE */
-.card-image-wrapper {
-    position: relative;
-    overflow: hidden;
 }
 
 .card-image-wrapper img {
@@ -174,47 +166,22 @@ MASONRY PINTEREST
     display: block;
 }
 
-/* OVERLAY */
 .card-overlay {
     position: absolute;
     inset: 0;
     background: rgba(0,0,0,.5);
     opacity: 0;
-    transition: opacity .3s;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     padding: 15px;
+    transition: opacity .3s;
 }
 
 .card:hover .card-overlay {
     opacity: 1;
 }
 
-.overlay-text {
-    color: #fff;
-    font-weight: bold;
-}
-
-.overlay-icons {
-    display: flex;
-    gap: 10px;
-}
-
-.like-button,
-.external-link {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: #fff;
-    border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-}
-
-/* CONTENT */
 .card-content {
     padding: 15px;
 }
@@ -231,91 +198,39 @@ MASONRY PINTEREST
     border: none;
     color: #fff;
     border-radius: 6px;
-    cursor: pointer;
-}
-
-/* JS STATES */
-.card.liked i {
-    color: var(--like);
-}
-
-.card.toggled {
-    border: 2px solid var(--like);
-    background: #fdeaea;
-}
-
-.card.toggled .action-button {
-    background: var(--like);
-}
-/* Hover */
-@media (hover: hover) {
-    .sidebar-nav a:hover {
-        color: var(--primary-light);
-    }
-
-    .sidebar-nav a:hover::after {
-        width: 100%;
-    }
-}
-
-/* Activo */
-.sidebar-nav a.active {
-    color: var(--primary-light);
-}
-
-.sidebar-nav a.active::after {
-    width: 100%;
 }
 
 /* =========================
-   DESKTOP / SIDEBAR
+   FOOTER
    ========================= */
-@media (min-width: 600px) {
-    .sidebar-nav ul {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 14px;
-        z-index: 999;
-    }
-
-    .sidebar-nav a {
-        padding-left: 0;
-    }
+.layout-footer {
+    background: var(--primary-dark);
+    color: #fff;
+    text-align: center;
+    padding: 15px;
 }
+
 /* =========================
-   MENÚ FIJO EN MÓVIL
+   MÓVIL: HEADER + MENU FIJOS
    ========================= */
 @media (max-width: 599px) {
-    .layout-header,
-    .layout-aside {
+    .layout-header {
         position: fixed;
         top: 0;
-        left: 0;
         width: 100%;
-        height: auto;
-        z-index: 10000; /* mucho más alto que cualquier overlay */
-        
+        height: var(--header-height);
     }
-    .layout-aside{
-        top: 70px;
-        background: var(--card-bg);
-        border-bottom: 1px solid rgba(0,0,0,0.1);
+
+    .layout-aside {
+        position: fixed;
+        top: var(--header-height);
+        width: 100%;
+        height: var(--menu-height);
+        border-bottom: 1px solid rgba(0,0,0,.1);
+        z-index: 9;
     }
 
     .layout-main {
-        padding-top: 70px; /* deja espacio al menú fijo */
-        position: relative;
-        z-index: 1; /* asegurar que main quede debajo */
-    }
-
-    .card {
-        position: relative;
-        z-index: 1; /* cada card bajo el menu */
-    }
-
-    .sidebar-nav ul {
-        flex-direction: row;
-        justify-content: space-around;
+        padding-top: calc(var(--header-height) + var(--menu-height));
     }
 }
-
