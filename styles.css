@@ -1,9 +1,9 @@
 :root {
-    --primary-dark: #2c3e50;
-    --primary-light: #3498db;
+    --primary-dark: salmon;
+    --primary-light: #eeccb0;
     --bg: #ecf0f1;
     --card-bg: #fff;
-    --text: #34495e;
+    --text: #424242;
     --text-muted: #7f8c8d;
     --like: #e74c3c;
 }
@@ -28,17 +28,70 @@ body {
     text-align: center;
     padding: 20px;
 }
+/* =========================
+   FUENTE CABECERA
+   ========================= */
+
+/* .layout-header h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    letter-spacing: 1px;
+    font-size: clamp(2rem, 5vw, 3rem);
+}
+
+.layout-header p {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 400;
+    opacity: 0.9;
+    margin-top: 8px;
+} */
+ .layout-header {
+    background: linear-gradient(135deg, #eeccb0, salmon);
+}
+
+.layout-header h1 {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    font-size: clamp(2rem, 5vw, 3rem);
+}
+
+.layout-header p {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 500;
+    opacity: 0.9;
+    margin-top: 6px;
+}
+
 
 /* ASIDE */
 .layout-aside {
     background: var(--card-bg);
-    padding: 10px;
+    
 }
 
 .sidebar-nav ul {
     list-style: none;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
+    gap: 12px;
+    padding: 10px 0;
+}
+
+.sidebar-nav a {
+    position: relative;
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 999px; /* pill */
+    background: rgba(52, 152, 219, 0.1);
+    color: var(--primary-dark);
+    font-weight: 600;
+    text-decoration: none;
+    transition: 
+        background-color 0.3s,
+        color 0.3s,
+        transform 0.2s,
+        box-shadow 0.2s;
 }
 
 /* MAIN */
