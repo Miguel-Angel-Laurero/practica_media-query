@@ -292,13 +292,20 @@ MASONRY PINTEREST
         left: 0;
         width: 100%;
         height: auto;
-        z-index: 1000;
+        z-index: 10000; /* mucho más alto que cualquier overlay */
         background: var(--card-bg);
         border-bottom: 1px solid rgba(0,0,0,0.1);
     }
 
     .layout-main {
         padding-top: 70px; /* deja espacio al menú fijo */
+        position: relative;
+        z-index: 1; /* asegurar que main quede debajo */
+    }
+
+    .card {
+        position: relative;
+        z-index: 1; /* cada card bajo el menu */
     }
 
     .sidebar-nav ul {
@@ -306,3 +313,4 @@ MASONRY PINTEREST
         justify-content: space-around;
     }
 }
+
