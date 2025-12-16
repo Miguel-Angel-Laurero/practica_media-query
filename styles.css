@@ -282,3 +282,22 @@ MASONRY PINTEREST
         padding-left: 0;
     }
 }
+/* =========================
+   MENÚ FIJO EN MÓVIL
+   ========================= */
+@media (max-width: 599px) {
+    .layout-aside {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: auto;
+        z-index: 1000;
+        background: var(--card-bg);
+        border-bottom: 1px solid rgba(0,0,0,0.1);
+    }
+
+    .layout-main {
+        padding-top: 70px; /* deja espacio al menú fijo */
+    }
+}
