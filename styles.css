@@ -204,9 +204,7 @@ body {
     border-radius: 6px;
 }
 
-/* =========================
-   FOOTER
-   ========================= */
+/* FOOTER */
 .layout-footer {
     background: var(--primary-dark);
     color: #fff;
@@ -214,10 +212,9 @@ body {
     padding: 15px;
 }
 
-/* =========================
-   MÓVIL: HEADER + MENU FIJOS
-   ========================= */
+/* MÓVIL: HEADER + MENU FIJOS */
 @media (max-width: 599px) {
+    /* Header fijo */
     .layout-header {
         position: fixed;
         top: 0;
@@ -227,27 +224,35 @@ body {
         z-index: 10;
     }
 
+    /* Menu fijo justo debajo del header */
     .layout-aside {
         position: fixed;
-        top: var(--header-height); /* justo debajo del header */
+        top: var(--header-height);
         left: 0;
         width: 100%;
-        height: var(--menu-height); /* altura del menú */
-        border-bottom: 1px solid rgba(0,0,0,.1);
+        height: var(--menu-height);
         background: var(--card-bg);
+        border-bottom: 1px solid rgba(0,0,0,.1);
         z-index: 9;
+        display: flex;
+        align-items: center; /* centra verticalmente los items del menú */
     }
 
+    /* Asegura que el main no quede debajo de header + menú */
     .layout-main {
-        padding-top: calc(var(--header-height) + var(--menu-height)); /* evita que el contenido quede debajo de header + menu */
+        padding-top: calc(var(--header-height) + var(--menu-height) + 10px); /* +10px opcional para separación */
     }
 
-    /* Ajuste de grid para móvil */
-    .layout-grid-container {
-        grid-template-columns: 1fr;
-        grid-template-areas:
-            "header"
-            "aside"
-            "main";
+    /* Ajuste del nav */
+    .sidebar-nav ul {
+        flex-direction: row;
+        justify-content: space-around;
+        padding: 0 10px;
+        margin: 0;
+    }
+
+    .sidebar-nav a {
+        font-size: 0.9rem;
     }
 }
+
