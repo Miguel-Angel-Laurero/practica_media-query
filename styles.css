@@ -160,6 +160,10 @@ body {
 .card:hover {
     transform: translateY(-4px);
 }
+.card-image-wrapper {
+    position: relative;
+    overflow: hidden;
+}
 
 .card-image-wrapper img {
     width: 100%;
