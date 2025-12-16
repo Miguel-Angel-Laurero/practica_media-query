@@ -1,21 +1,11 @@
-/*
-==================================================
-1. VARIABLES Y RESET
-==================================================
-*/
-
 :root {
-    --color-primary-dark: #2c3e50;
-    --color-primary-light: #3498db;
-    --color-background: #ecf0f1;
-    --color-card-bg: #ffffff;
-    --color-text-body: #34495e;
-    --color-text-secondary: #7f8c8d;
-    --color-like-active: #e74c3c;
-
-    --card-radius: 12px;
-    --card-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
-    --card-shadow-hover: 0 10px 25px rgba(0, 0, 0, 0.15);
+    --primary-dark: #2c3e50;
+    --primary-light: #3498db;
+    --bg: #ecf0f1;
+    --card-bg: #fff;
+    --text: #34495e;
+    --text-muted: #7f8c8d;
+    --like: #e74c3c;
 }
 
 * {
@@ -25,44 +15,23 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--color-background);
-    color: var(--color-text-body);
+    font-family: 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
 }
 
-/*
-==================================================
-2. LAYOUT GENERAL (MOBILE FIRST)
-==================================================
-*/
-
-.layout-header {
-    background-color: var(--color-primary-dark);
+/* HEADER / FOOTER */
+.layout-header,
+.layout-footer {
+    background: var(--primary-dark);
     color: #fff;
     text-align: center;
-    padding: 30px 15px;
+    padding: 20px;
 }
 
-.layout-footer {
-    background-color: var(--color-primary-dark);
-    color: var(--color-text-secondary);
-    text-align: center;
-    padding: 15px;
-    font-size: 0.8em;
-}
-
-.layout-grid-container {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-areas:
-        "aside"
-        "main";
-}
-
+/* ASIDE */
 .layout-aside {
-    grid-area: aside;
-    background-color: var(--color-card-bg);
-    border-bottom: 1px solid #ddd;
+    background: var(--card-bg);
     padding: 10px;
 }
 
@@ -72,68 +41,73 @@ body {
     justify-content: space-around;
 }
 
-.sidebar-nav h2 {
-    display: none;
-}
-
-.sidebar-nav a {
-    text-decoration: none;
-    color: var(--color-primary-dark);
-    font-weight: bold;
-}
-
+/* MAIN */
 .layout-main {
-    grid-area: main;
-    padding: 15px;
-}
-
-.layout-main h2 {
-    margin-bottom: 20px;
-    color: var(--color-primary-dark);
+    padding: 20px;
 }
 
 /*
-==================================================
-3. TARJETAS – FLEX (MOBILE FIRST)
-==================================================
+=========================
+MASONRY PINTEREST
+=========================
 */
-
 .card-container {
+    columns: 1;
+    column-gap: 20px;
+}
+
+/* Responsive masonry */
+@media (min-width: 600px) {
+    .card-container { columns: 2; }
+}
+
+@media (min-width: 900px) {
+    .card-container { columns: 4; }
+}
+
+/* CARD */
+.card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0,0,0,.1);
+    margin-bottom: 20px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
-}
-
-.card {
-    background-color: var(--color-card-bg);
-    border-radius: var(--card-radius);
-    box-shadow: var(--card-shadow);
+    break-inside: avoid;
     overflow: hidden;
-    transition: transform 0.3s, box-shadow 0.3s, border 0.3s;
+    transition: transform .3s, box-shadow .3s;
 }
 
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(0,0,0,.2);
+}
+
+/* IMAGE */
 .card-image-wrapper {
     position: relative;
-    height: 300px;
 }
 
 .card-image-wrapper img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    display: block;
 }
 
-/* Overlay estilo Pinterest */
+/* OVERLAY */
 .card-overlay {
     position: absolute;
     inset: 0;
-    background-color: rgba(44, 62, 80, 0.6);
+    background: rgba(0,0,0,.5);
     opacity: 0;
-    transition: opacity 0.3s;
+    transition: opacity .3s;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     padding: 15px;
+}
+
+.card:hover .card-overlay {
+    opacity: 1;
 }
 
 .overlay-text {
@@ -143,7 +117,7 @@ body {
 
 .overlay-icons {
     display: flex;
-    gap: 15px;
+    gap: 10px;
 }
 
 .like-button,
@@ -151,112 +125,44 @@ body {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background-color: #fff;
-    color: var(--color-primary-dark);
+    background: #fff;
     border: none;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    text-decoration: none;
 }
 
+/* CONTENT */
 .card-content {
     padding: 15px;
 }
 
 .secondary-text {
-    color: var(--color-text-secondary);
-    font-size: 0.9em;
-    margin-bottom: 15px;
+    color: var(--text-muted);
+    margin: 10px 0;
 }
 
 .action-button {
     width: 100%;
     padding: 10px;
-    background-color: var(--color-primary-light);
-    color: #fff;
+    background: var(--primary-light);
     border: none;
-    border-radius: 5px;
+    color: #fff;
+    border-radius: 6px;
     cursor: pointer;
 }
 
-/* Hover solo en dispositivos no táctiles */
-@media (hover: hover) and (pointer: fine) {
-    .card:hover {
-        transform: scale(1.02);
-        box-shadow: var(--card-shadow-hover);
-        border: 1px solid var(--color-primary-light);
-    }
-
-    .card:hover .card-overlay {
-        opacity: 1;
-    }
-}
-
-/* Estados JS */
-.card.liked .like-button i {
-    color: var(--color-like-active);
+/* JS STATES */
+.card.liked i {
+    color: var(--like);
 }
 
 .card.toggled {
-    background-color: #fdeaea;
-    border: 2px solid var(--color-like-active);
+    border: 2px solid var(--like);
+    background: #fdeaea;
 }
 
 .card.toggled .action-button {
-    background-color: var(--color-like-active);
-}
-
-/*
-==================================================
-4. MEDIA QUERIES
-==================================================
-*/
-
-/* TABLET: 600px – 800px */
-@media (600px <= width <= 800px) {
-
-    .layout-grid-container {
-        grid-template-columns: 180px 1fr;
-        grid-template-areas: "aside main";
-    }
-
-    .sidebar-nav ul {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .sidebar-nav h2 {
-        display: block;
-        margin-bottom: 10px;
-    }
-
-    .card-container {
-        flex-direction: row;
-        flex-wrap: wrap;
-    }
-
-    .card {
-        width: calc(50% - 10px);
-    }
-}
-
-/* DESKTOP: > 800px */
-@media (width >= 800px) {
-
-    .layout-grid-container {
-        grid-template-columns: 250px 1fr;
-        grid-template-areas: "aside main";
-    }
-
-    .card-container {
-        flex-direction: row;
-        flex-wrap: wrap;
-        gap: 25px;
-    }
-
-    .card {
-        width: calc(25% - 20px);
-    }
+    background: var(--like);
 }
