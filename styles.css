@@ -281,6 +281,7 @@ MASONRY PINTEREST
         flex-direction: column;
         align-items: flex-start;
         gap: 14px;
+        z-index: 999;
     }
 
     .sidebar-nav a {
