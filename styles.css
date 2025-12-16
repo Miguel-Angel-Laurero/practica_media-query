@@ -220,9 +220,8 @@ body {
 @media (max-width: 599px) {
     .layout-header {
         position: fixed;
-        top: 0;
+        top: var(--header-height);
         width: 100%;
-        height: var(--header-height);
     }
 
     .layout-aside {
