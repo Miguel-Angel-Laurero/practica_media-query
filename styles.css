@@ -32,19 +32,6 @@ body {
    FUENTE CABECERA
    ========================= */
 
-/* .layout-header h1 {
-    font-family: 'Space Grotesk', sans-serif;
-    font-weight: 700;
-    letter-spacing: 1px;
-    font-size: clamp(2rem, 5vw, 3rem);
-}
-
-.layout-header p {
-    font-family: 'Space Grotesk', sans-serif;
-    font-weight: 400;
-    opacity: 0.9;
-    margin-top: 8px;
-} */
  .layout-header {
     background: linear-gradient(135deg, #eeccb0, salmon);
 }
@@ -63,40 +50,77 @@ body {
     margin-top: 6px;
 }
 
+.layout-grid-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+        "aside"
+        "main";
+}
+
+/* Desktop */
+@media (min-width: 600px) {
+    .layout-grid-container {
+        grid-template-columns: 220px 1fr;
+        grid-template-areas: "aside main";
+    }
+}
 
 /* ASIDE */
 .layout-aside {
     background: var(--card-bg);
+    grid-area: aside;
+    position: sticky;
+        top: 0;
+        height: 100vh;
     
+}
+
+.sidebar-nav {
+    font-family: 'Manrope', sans-serif;
+}
+
+.sidebar-nav h2 {
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--primary-dark);
 }
 
 .sidebar-nav ul {
     list-style: none;
     display: flex;
+    gap: 16px;
     justify-content: center;
-    gap: 12px;
     padding: 10px 0;
 }
 
+/* ENLACES */
 .sidebar-nav a {
     position: relative;
-    display: inline-block;
-    padding: 8px 16px;
-    border-radius: 999px; /* pill */
-    background: rgba(52, 152, 219, 0.1);
+    text-decoration: none;
     color: var(--primary-dark);
     font-weight: 600;
-    text-decoration: none;
-    transition: 
-        background-color 0.3s,
-        color 0.3s,
-        transform 0.2s,
-        box-shadow 0.2s;
+    font-size: 0.95rem;
+    padding: 4px 2px;
+    transition: color 0.25s ease;
+}
+
+/* Subrayado animado */
+.sidebar-nav a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 0%;
+    height: 2px;
+    background-color: var(--primary-light);
+    transition: width 0.3s ease;
 }
 
 /* MAIN */
 .layout-main {
     padding: 20px;
+    grid-area: main;
 }
 
 /*
@@ -112,10 +136,20 @@ MASONRY PINTEREST
 /* Responsive masonry */
 @media (min-width: 600px) {
     .card-container { columns: 2; }
+    .layout-aside {
+        position: sticky;
+        top: 0;
+        height: 100vh;
+    }
 }
 
 @media (min-width: 900px) {
     .card-container { columns: 4; }
+    .layout-aside {
+        position: sticky;
+        top: 0;
+        height: 100vh;
+    }
 }
 
 /* CARD */
@@ -218,4 +252,38 @@ MASONRY PINTEREST
 
 .card.toggled .action-button {
     background: var(--like);
+}
+/* Hover */
+@media (hover: hover) {
+    .sidebar-nav a:hover {
+        color: var(--primary-light);
+    }
+
+    .sidebar-nav a:hover::after {
+        width: 100%;
+    }
+}
+
+/* Activo */
+.sidebar-nav a.active {
+    color: var(--primary-light);
+}
+
+.sidebar-nav a.active::after {
+    width: 100%;
+}
+
+/* =========================
+   DESKTOP / SIDEBAR
+   ========================= */
+@media (min-width: 600px) {
+    .sidebar-nav ul {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+    }
+
+    .sidebar-nav a {
+        padding-left: 0;
+    }
 }
