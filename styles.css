@@ -297,6 +297,7 @@ MASONRY PINTEREST
         
     }
     .layout-aside{
+        top: 70px;
         background: var(--card-bg);
         border-bottom: 1px solid rgba(0,0,0,0.1);
     }
