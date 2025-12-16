@@ -300,4 +300,9 @@ MASONRY PINTEREST
     .layout-main {
         padding-top: 70px; /* deja espacio al menú fijo */
     }
+
+    .sidebar-nav ul {
+        flex-direction: row;
+        justify-content: space-around;
+    }
 }
